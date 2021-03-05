@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1614951208 source:c:\users\chawk\workspacec\rankingmodulair\matrice.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"matrice.h"
+
+1614956371 c:\users\chawk\workspacec\rankingmodulair\matrice.h
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+
+1614951419 source:c:\users\chawk\workspacec\rankingmodulair\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"matrice.h"
+
