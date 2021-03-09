@@ -5,14 +5,24 @@
 	<string.h>
 	"matrice.h"
 
-1614956371 c:\users\chawk\workspacec\rankingmodulair\matrice.h
+1615227218 c:\users\chawk\workspacec\rankingmodulair\matrice.h
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 
-1614951419 source:c:\users\chawk\workspacec\rankingmodulair\main.c
+1615324734 source:c:\users\chawk\workspacec\rankingmodulair\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	"matrice.h"
+
+1615322285 source:c:\users\chawk\workspacec\rankingmodulair\operation.c
+	<stdio.h>
+	<stdlib.h>
+	"operation.h"
+
+1615320231 c:\users\chawk\workspacec\rankingmodulair\operation.h
+	<stdio.h>
+	<stdlib.h>
 	"matrice.h"
 

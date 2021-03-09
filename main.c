@@ -3,14 +3,18 @@
 #include <string.h>
 #include "matrice.h"
 
+
+
 int main()
 {
    int nbrSommet , i, sommet1,sommet2, arc;
    long nbrArc;
    double poid;
    char chaine[1000000]="";
-
    FILE* fichier = NULL;
+
+   double *pi;
+   double *res;
 
    char * pch1;
 
@@ -19,7 +23,7 @@ int main()
    poid = 0;
    arc = 0;
 
-   fichier = fopen("web1.txt","r+");
+   fichier = fopen("wb-edu.txt","r+");
 
    if(fichier != NULL)
    {
@@ -86,9 +90,10 @@ int main()
                 }
 
         }
+        fclose(fichier);
 
 
-      /*  for(i = 0 ; i<nbrSommet;i++)
+       /* for(i = 0 ; i<nbrSommet;i++)
             {
 
                 afficherListe(T[i],i+1);
@@ -96,8 +101,60 @@ int main()
 
             }*/
 
+        pi = calloc(nbrSommet, sizeof(double));
+        initvect(pi,nbrSommet);
 
-        fclose(fichier);
+
+        double *v1 = calloc(nbrSommet, sizeof(double));
+
+         /*multiplication(T,nbrSommet,pi,v1);
+         affichervect(nbrSommet,v1);*/
+
+
+
+       /* multiplication(T,nbrSommet,pi,v1);
+        pi = v1;
+        v1 = calloc(nbrSommet, sizeof(double));
+         multiplication(T,nbrSommet,pi,v1);
+        pi = v1;
+        v1 = calloc(nbrSommet, sizeof(double));
+         multiplication(T,nbrSommet,pi,v1);
+        pi = v1;
+        v1 = calloc(nbrSommet, sizeof(double));
+         multiplication(T,nbrSommet,pi,v1);
+        pi = v1;
+        v1 = calloc(nbrSommet, sizeof(double));
+         multiplication(T,nbrSommet,pi,v1);
+         affichervect(nbrSommet,v1);*/
+
+
+        /* for(int i = 0 ;i<173 ; i++){
+            multiplication(T,nbrSommet,pi,v1);
+            pi = v1;
+            v1 = calloc(nbrSommet, sizeof(double));
+
+         }*/
+
+
+       /* printf("convergence \n");
+        double  *conv =calloc(nbrSommet, sizeof(double));
+        conv = convergence(T,nbrSommet,pi,v1);
+
+        affichervect(conv);*/
+
+        //multiplication(T,nbrSommet,pi,v1);
+
+        double  *conv =calloc(nbrSommet, sizeof(double));
+        conv = convergence(T,nbrSommet,pi,v1);
+
+
+
+
+
+
+
+
+
    }
    else
    {

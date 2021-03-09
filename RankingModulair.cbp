@@ -38,7 +38,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="matrice.h" />
+		<Unit filename="moyen.txt" />
+		<Unit filename="operation.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="operation.h" />
+		<Unit filename="wb-edu.txt" />
 		<Unit filename="web1.txt" />
+		<Unit filename="web4.txt" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
