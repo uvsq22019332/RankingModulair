@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "operation.h"
 
+#define ALPHA 0.85
 #define EPSILON 0.000001
 #define ABS(x) (((x) < 0) ? -(x) : (x))
 
@@ -19,7 +20,7 @@ void multiplication(Liste t[] , double *pi, double *res, int nbr)
 
             }else{
                 EDGE *actuel = t[i];
-                while (actuel != NULL && actuel->vertex1 != 0)
+                while (actuel != NULL)
                 {
                     multi = multi+(pi[actuel->vertex1-1]*actuel->weight);
                     actuel = actuel->next;
@@ -40,13 +41,14 @@ void initvect(double *vect,int nbrelem){
 
 }
 
-double *renit(double *vect,int nbr){
-    int i;
-    for(i =0;i<nbr;i++){
-        vect[i]=0;
+double *initF(int nbr){
+
+    double *f = calloc(nbr, sizeof(double));
+    for(int i =0;i<nbr;i++){
+        f[i]=1;
     }
 
-    return vect;
+    return f;
 
 }
 
@@ -77,12 +79,15 @@ double *affectation(double *A,double *B, int nbr){
 
 }
 
-double  *convergence(Liste T[], int nbrelem, double *pi, double *conv){
+
+double  *convergence(Liste T[], int nbrelem, double *pi){
 
     double dif = 1;
     int iteration = 1;
     double *v1 = calloc(nbrelem, sizeof(double));
     double *v2 = calloc(nbrelem, sizeof(double));
+
+     printf("Convergence Debut ! \n");
 
     multiplication(T,pi,v1,nbrelem);
     dif =diff(pi,v1,nbrelem);
@@ -99,11 +104,52 @@ double  *convergence(Liste T[], int nbrelem, double *pi, double *conv){
         printf("nombre d'iteration %d \n",iteration);
     }
         printf("FIN ! \n");
-
-
-
-
     return v1;
+}
 
+double *alphaP(double *p,int nbr){
+
+     double *v1 = calloc(nbr, sizeof(double));
+
+     for(int i =0 ;i<nbr;i++){
+        v1[i]=p[i]*0.85;
+     }
+
+     return v1;
+}
+
+double *scalairE(double *pi,int nbr){
+
+    double *f = calloc(nbr, sizeof(double));
+    double *e = calloc(nbr, sizeof(double));
+    f = initF(nbr);
+
+    double scalair = 0;
+
+    for(int i = 0;i<nbr;i++){
+        scalair += pi[i]*f[i];
+    }
+
+    scalair = ALPHA*(1/nbr*1.0)*scalair;
+    scalair += (1-ALPHA)*(1/nbr*1.0);
+
+    for(int i =0 ;i<nbr;i++){
+        e[i]=f[i]*scalair;
+     }
+    return e;
+
+}
+
+
+
+double *surferaleatoir(Liste T[], int nbrelem, double *pi)
+{
+    double dif = 1;
+    int iteration = 1;
+    double *v1 = calloc(nbrelem, sizeof(double));
+    double *v2 = calloc(nbrelem, sizeof(double));
+
+    multiplication(T,pi,v1,nbrelem);
+    v2 = alphaP(v1,nbrelem);
 
 }

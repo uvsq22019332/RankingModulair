@@ -15,7 +15,6 @@ int main()
 
    double *pi;
    double *res;
-
    char * pch1;
 
    sommet1 = 0;
@@ -23,7 +22,7 @@ int main()
    poid = 0;
    arc = 0;
 
-   fichier = fopen("wb-edu.txt","r+");
+   fichier = fopen("web1.txt","r+");
 
    if(fichier != NULL)
    {
@@ -93,63 +92,27 @@ int main()
         fclose(fichier);
 
 
-       /* for(i = 0 ; i<nbrSommet;i++)
+
+        for(i = 0 ; i<nbrSommet;i++)
             {
 
                 afficherListe(T[i],i+1);
 
 
-            }*/
+            }
 
         pi = calloc(nbrSommet, sizeof(double));
         initvect(pi,nbrSommet);
-
-
-        double *v1 = calloc(nbrSommet, sizeof(double));
-
-         /*multiplication(T,nbrSommet,pi,v1);
-         affichervect(nbrSommet,v1);*/
-
-
-
-       /* multiplication(T,nbrSommet,pi,v1);
-        pi = v1;
-        v1 = calloc(nbrSommet, sizeof(double));
-         multiplication(T,nbrSommet,pi,v1);
-        pi = v1;
-        v1 = calloc(nbrSommet, sizeof(double));
-         multiplication(T,nbrSommet,pi,v1);
-        pi = v1;
-        v1 = calloc(nbrSommet, sizeof(double));
-         multiplication(T,nbrSommet,pi,v1);
-        pi = v1;
-        v1 = calloc(nbrSommet, sizeof(double));
-         multiplication(T,nbrSommet,pi,v1);
-         affichervect(nbrSommet,v1);*/
-
-
-        /* for(int i = 0 ;i<173 ; i++){
-            multiplication(T,nbrSommet,pi,v1);
-            pi = v1;
-            v1 = calloc(nbrSommet, sizeof(double));
-
-         }*/
-
-
-       /* printf("convergence \n");
         double  *conv =calloc(nbrSommet, sizeof(double));
-        conv = convergence(T,nbrSommet,pi,v1);
 
-        affichervect(conv);*/
+        affichervect(pi,nbrSommet);
+        conv = convergence(T,nbrSommet,pi);       //TEST COVERGENCE
+        affichervect(conv,nbrSommet);
 
-        //multiplication(T,nbrSommet,pi,v1);
-
-        double  *conv =calloc(nbrSommet, sizeof(double));
-        conv = convergence(T,nbrSommet,pi,v1);
-
-
-
-
+        /*multiplication(T,pi,conv,nbrSommet);
+        double  *v1 =calloc(nbrSommet, sizeof(double));        TEST ALPHA*M
+        v1 = alphaP(conv,nbrSommet);
+        affichervect(v1,nbrSommet);*/
 
 
 
