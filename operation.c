@@ -107,49 +107,101 @@ double  *convergence(Liste T[], int nbrelem, double *pi){
     return v1;
 }
 
-double *alphaP(double *p,int nbr){
+double *alphaP(Liste T[],double *pi,int nbr){
 
      double *v1 = calloc(nbr, sizeof(double));
+     double *v2 = calloc(nbr, sizeof(double));
+
+     multiplication(T,pi,v1,nbr);
 
      for(int i =0 ;i<nbr;i++){
-        v1[i]=p[i]*0.85;
+        v2[i]=v1[i]*0.85;
      }
 
-     return v1;
+     return v2;
 }
 
-double *scalairE(double *pi,int nbr){
+double *scalairE(Liste T[],double *pi,double *ft,int nbr){
 
-    double *f = calloc(nbr, sizeof(double));
     double *e = calloc(nbr, sizeof(double));
-    f = initF(nbr);
+    double *E = calloc(nbr, sizeof(double));
+
+    e= initF(nbr);
+
 
     double scalair = 0;
 
+    double s1,s2,s3;
+
+
+    s3=0;
+
+    double N = (nbr*1.0);
+
+
+
     for(int i = 0;i<nbr;i++){
-        scalair += pi[i]*f[i];
+        s3 += pi[i]*ft[i];
     }
 
-    scalair = ALPHA*(1/nbr*1.0)*scalair;
-    scalair += (1-ALPHA)*(1/nbr*1.0);
+    s1 = (1-0.85)*(1/N);
+    s2=0.85*(1/N);
+    s2*=s3;
+
+
+    scalair = s1+s2;
 
     for(int i =0 ;i<nbr;i++){
-        e[i]=f[i]*scalair;
+        E[i]=e[i]*scalair;
      }
-    return e;
+    return E;
 
 }
 
+double *AdditionVect(double *xp, double *xfe, int nbr){
 
+    double *v1 = calloc(nbr, sizeof(double));
 
-double *surferaleatoir(Liste T[], int nbrelem, double *pi)
+    for(int i = 0;i<nbr;i++){
+        v1[i]=xp[i]+xfe[i];
+    }
+    return v1;
+}
+
+double *surferaleatoir(Liste T[], int nbrelem, double *pi,double *ft)
 {
-    double dif = 1;
+    double dif = 0;
     int iteration = 1;
-    double *v1 = calloc(nbrelem, sizeof(double));
-    double *v2 = calloc(nbrelem, sizeof(double));
+    double *xp = calloc(nbrelem, sizeof(double));
+    double *xfe = calloc(nbrelem, sizeof(double));
+    double *x = calloc(nbrelem, sizeof(double));
+    double *x2 = calloc(nbrelem, sizeof(double));
 
-    multiplication(T,pi,v1,nbrelem);
-    v2 = alphaP(v1,nbrelem);
+    xp = alphaP(T,pi,nbrelem);
+    xfe = scalairE(T,pi,ft,nbrelem);
+    x = AdditionVect(xp,xfe,nbrelem); //c'est xG
+    dif = diff(x,pi,nbrelem);
 
+    free(xp);
+    free(xfe);
+
+    while (dif>EPSILON){
+            xp = calloc(nbrelem, sizeof(double));
+            xfe = calloc(nbrelem, sizeof(double));
+            xp = alphaP(T,x,nbrelem);
+            xfe = scalairE(T,x,ft,nbrelem);
+            x2 = AdditionVect(xp,xfe,nbrelem); //c'est xG
+            dif = diff(x,x2,nbrelem);
+            free(x);
+            free(xp);
+            free(xfe);
+            x=x2;
+            x2 = calloc(nbrelem, sizeof(double));
+            iteration++;
+
+    }
+    printf("nombre d'iteration est %d \n",iteration);
+
+
+    return x;
 }

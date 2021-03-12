@@ -8,7 +8,7 @@ void affichervect(double *vect, int nbr);
 double diff(double *A, double *B, int taille);
 double *convergence (Liste t[],int nbrelem, double *pi);
 double *initF(int nbr);
-double *alphaP(double *p,int nbr);
-double *scalairE(double *pi,int nbr);
-double *surferaleatoir(Liste T[], int nbrelem, double *pi);
+double *alphaP(Liste T[], double *p,int nbr);
+double *scalairE(Liste T[],double *pi,double *ft,int nbr);
+double *surferaleatoir(Liste T[], int nbrelem, double *pi,double *ft);
 

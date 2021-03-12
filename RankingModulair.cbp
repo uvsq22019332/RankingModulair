@@ -31,6 +31,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Stanford.txt" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -43,6 +44,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="operation.h" />
+		<Unit filename="wb-cs-stanford.txt" />
 		<Unit filename="wb-edu.txt" />
 		<Unit filename="web1.txt" />
 		<Unit filename="web4.txt" />
