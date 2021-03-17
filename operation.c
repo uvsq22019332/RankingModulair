@@ -28,11 +28,11 @@ void multiplication(Liste t[] , double *pi, double *res, int nbr)
                 res[i]= multi;
             }
     }
-    return res;
+    //return res;
 }
 
 
-
+//initialise le vecteur des pertinences 
 void initvect(double *vect,int nbrelem){
     int i = 0 ;
     for(i =0;i<nbrelem;i++){
@@ -87,7 +87,7 @@ double  *convergence(Liste T[], int nbrelem, double *pi){
     double *v1 = calloc(nbrelem, sizeof(double));
     double *v2 = calloc(nbrelem, sizeof(double));
 
-     printf("Convergence Debut ! \n");
+    printf("Convergence Debut ! \n");
 
     multiplication(T,pi,v1,nbrelem);
     dif =diff(pi,v1,nbrelem);
@@ -103,7 +103,7 @@ double  *convergence(Liste T[], int nbrelem, double *pi){
         iteration++;
         printf("nombre d'iteration %d \n",iteration);
     }
-        printf("FIN ! \n");
+    printf("FIN ! \n");
     return v1;
 }
 
@@ -197,11 +197,10 @@ double *surferaleatoir(Liste T[], int nbrelem, double *pi,double *ft)
             free(xfe);
             x=x2;
             x2 = calloc(nbrelem, sizeof(double));
-            iteration++;
-
+            iteration++;   
     }
+    //affichervect(x, 8);
+
     printf("nombre d'iteration est %d \n",iteration);
-
-
     return x;
 }
