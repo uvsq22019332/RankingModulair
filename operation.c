@@ -204,3 +204,51 @@ double *surferaleatoir(Liste T[], int nbrelem, double *pi,double *ft)
     printf("nombre d'iteration est %d \n",iteration);
     return x;
 }
+
+
+
+
+void remove_vertex(Liste T, int vertex_index, int nb_sommets){
+
+    for (int i = 0; i < nb_sommets; i++){
+
+        EDGE walking_node = T[i];
+        EDGE save_the_next;
+
+        // Si on tombe sur la ligne des arcs entrant du sommet, on supprime tout, comme le sommet ne doit plus exister.
+        if ( i == vertex_index ){
+
+            while ( walking_node != NULL ){
+                
+                save_the_next = walking_node->next;
+                free(walking_node);
+                walking_node = save_the_next;
+
+            }
+
+        }
+
+        // Si une ligne ne contient qu'un seul arc et celui-ci est entrant depuis vertex_index, on supprime la liste. [cas spécial]
+        if ( walking_node->next == NULL && walking_node->vertex1 = vertex_index){
+
+            free(walking_node);
+            T[i] = NULL;
+
+        }
+
+        // Si une ligne contient un arc entrant depuis vertex_index, on le supprime.
+        while ( walking_node != NULL ){
+
+            if ( walking_node->next->vertex1 == vertex_index ){
+                
+                save_the_next = walking_node->next->next;
+                free(walking_node->next);
+                walking_node->next = save_the_next;
+
+            }
+
+        }
+
+    }
+
+}

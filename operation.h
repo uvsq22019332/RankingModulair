@@ -11,4 +11,4 @@ double *initF(int nbr);
 double *alphaP(Liste T[], double *p,int nbr);
 double *scalairE(Liste T[],double *pi,double *ft,int nbr);
 double *surferaleatoir(Liste T[], int nbrelem, double *pi,double *ft);
-
+void remove_vertex(Liste T, int vertex_index);
