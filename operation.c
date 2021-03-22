@@ -7,6 +7,18 @@
 #define ABS(x) (((x) < 0) ? -(x) : (x))
 
 
+FILE* open_file(char* file_name, char* permissions){
+
+    FILE* ret;
+
+    if ( (ret = fopen(file_name, permissions)) == NULL ){
+        printf("Coudl not open file");
+        exit(0);
+    }
+
+    return ret;
+}
+
 
 void multiplication(Liste t[] , double *pi, double *res, int nbr)
 {
@@ -121,7 +133,7 @@ double *alphaP(Liste T[],double *pi,int nbr){
      return v2;
 }
 
-double *scalairE(Liste T[],double *pi,double *ft,int nbr){
+double *scalairE(Liste T[],double *pi,int *ft,int nbr){
 
     double *e = calloc(nbr, sizeof(double));
     double *E = calloc(nbr, sizeof(double));
@@ -168,7 +180,7 @@ double *AdditionVect(double *xp, double *xfe, int nbr){
     return v1;
 }
 
-double *surferaleatoir(Liste T[], int nbrelem, double *pi,double *ft)
+double *surferaleatoir(Liste T[], int nbrelem, double *pi, int *ft)
 {
     double dif = 0;
     int iteration = 1;
@@ -208,12 +220,13 @@ double *surferaleatoir(Liste T[], int nbrelem, double *pi,double *ft)
 
 
 
-void remove_vertex(Liste T, int vertex_index, int nb_sommets){
+void remove_vertex(EDGE** T, int vertex_index, int nb_sommets){
 
-    for (int i = 0; i < nb_sommets; i++){
+    for (int i = 1; i < nb_sommets; i++){
 
-        EDGE walking_node = T[i];
-        EDGE save_the_next;
+        EDGE* walking_node = T[i - 1];
+        EDGE* save_the_next;
+        EDGE* save_the_last;
 
         // Si on tombe sur la ligne des arcs entrant du sommet, on supprime tout, comme le sommet ne doit plus exister.
         if ( i == vertex_index ){
@@ -223,29 +236,38 @@ void remove_vertex(Liste T, int vertex_index, int nb_sommets){
                 save_the_next = walking_node->next;
                 free(walking_node);
                 walking_node = save_the_next;
+                printf("Hello\n");
 
             }
-
+            T[i - 1] = NULL;
+            continue;
         }
 
         // Si une ligne ne contient qu'un seul arc et celui-ci est entrant depuis vertex_index, on supprime la liste. [cas spécial]
-        if ( walking_node->next == NULL && walking_node->vertex1 = vertex_index){
+        if ( (walking_node->next == NULL) && (walking_node->vertex1 == vertex_index) ){
 
             free(walking_node);
-            T[i] = NULL;
+            walking_node = NULL;
+            continue;
 
         }
-
+        
         // Si une ligne contient un arc entrant depuis vertex_index, on le supprime.
         while ( walking_node != NULL ){
+            
 
-            if ( walking_node->next->vertex1 == vertex_index ){
+            if ( walking_node->vertex1 == vertex_index ){
                 
-                save_the_next = walking_node->next->next;
-                free(walking_node->next);
-                walking_node->next = save_the_next;
+                save_the_next = walking_node->next;
+                free(walking_node);
+                save_the_last->next = save_the_next;
 
             }
+            else{
+                save_the_last = walking_node;
+                walking_node = walking_node->next;
+            }
+
 
         }
 

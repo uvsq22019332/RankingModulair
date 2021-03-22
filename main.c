@@ -11,107 +11,44 @@ int main(){
     time_t begin, end;
     time(&begin);
 
-    int nbrSommet , i, sommet1,sommet2, arc;
-    long nbrArc;
-    double poid;
-    char chaine[1000000]="";
-    FILE* fichier = NULL;
-
+    FILE* fichier;
     double *pi;
-    double *ft;
     double *res;
-    char * pch1;
+    int* ft;
+    int nbrSommet;
+    char chaine[1];
 
-    sommet1 = 0;
-    sommet2 = 0;
-    poid = 0;
-    arc = 0;
+    // Ouverture du fichier.
+    fichier = open_file("web1.txt", "r");
 
+    // Extraction du nombre de sommets.
+    fgets(chaine, 1000000, fichier);
+    nbrSommet = atoi(chaine);
 
+    // Allocation mémoire au vecteur ft et à la matrice creuse de proba en utilisant le nombre de sommets extrait.
+    EDGE** T = malloc(sizeof(EDGE*) * nbrSommet);
+    ft = calloc(nbrSommet, sizeof(int));
 
-    fichier = fopen("Stanford.txt","r");
-    if (fichier == NULL){
-        printf("Impossible de lire le fichier !");
-        exit(0);
-    }
-
-
-    fgets(chaine, 1000000, fichier); //prendre le premier element de notre fichier (matrice) c'est le nombre de sommets
-    nbrSommet =atoi(chaine); // convertir le char en int en utilisant la fonction atoi
-
-    fgets(chaine,1000000, fichier); // lire la deuxieme ligne (nombre d'arcs)
-    nbrArc =atol(chaine); // convertir le char en long
-
-    printf("le nombre de sommet : %d \n",nbrSommet);
-    printf("le nombre d'arc : %ld \n",nbrArc);
-
-    ft = calloc(nbrSommet, sizeof(double));
+    // Lecture et remplissage de la matrice creuse + setup du vecteur ft.
+    remplir_matrice_creuse(fichier, T, ft, nbrSommet);
 
 
-    EDGE** T = malloc(sizeof(EDGE*)* nbrSommet);// creer notre tableau de EDGE*
-
-
-    for(i = 0;i<nbrSommet;i++){
-        T[i]=initialisation();
-    }
-
-
-    while (fgets(chaine, sizeof(chaine), fichier) != NULL){ // On lit le fichier a partir de la 3 iem ligne tant qu'on ne reçoit pas d'erreur (NULL)
-        // On cherche à récupérer, un à un, tous les mots  de la ligne i
-        // et on commence par le premier.
-        
-        pch1 = strtok (chaine," ");
-        sommet1 = atoi(pch1);// sommet i
-
-        pch1 =strtok (NULL," ");//continue de "tokenizer" chaine
-        arc = atoi(pch1);//nbr arc du sommet i
-
-        //f vecteur ligne tq f(i)=1 si nb arc=0 et f(i)=0 sinon
-        //ft vecteur colonne
-        if(arc == 0)
-            ft[sommet1-1]=1;
-        else
-            ft[sommet1-1]=0;
-
-        //printf("le sommet : %d a %d successeur \n",sommet1,arc);
-        while (pch1 != NULL ){
-
-            // On demande le j ieme successeur.
-            pch1 =strtok (NULL," ");
-
-            if(pch1 != NULL){
-                sommet2 = atoi(pch1);
-            }
-
-            // On demande le poids de l'arc vers j iem successeur.
-            pch1 =strtok (NULL," ");
-
-            if(pch1 != NULL){
-                poid = atof(pch1);
-                T[sommet2-1] = insertion(T[sommet2-1],sommet1,poid);
-            }
-
-        }
-
-    }
     fclose(fichier);
+    afficherListe(T,8); //AFFICHAGE
 
-    //afficherListe(T,nbrSommet); //AFFICHAGE
+    remove_vertex(T, 3, nbrSommet);
 
+    printf("\n");
+    afficherListe(T,8);
+
+    return 0;
+    // Allocation de la mémoire et initiation du vecteur de pertinence PI.
     pi = calloc(nbrSommet, sizeof(double));
     initvect(pi,nbrSommet);
-    double *conv = calloc(nbrSommet, sizeof(double));
-
     affichervect(pi,8);
 
-    /*conv = convergence(T,nbrSommet,pi);       //TEST CONVERGENCE
-    affichervect(conv,nbrSommet);*/
-
-    /*multiplication(T,pi,conv,nbrSommet);
-    double  *v1 =calloc(nbrSommet, sizeof(double));       //TEST ALPHA*M
-    v1 = alphaP(conv,nbrSommet);
-    affichervect(v1,nbrSommet);*/
-
+    // Convergence surfer aléatoire
+    double *conv = calloc(nbrSommet, sizeof(double));
     conv = surferaleatoir(T,nbrSommet,pi,ft);
 
     affichervect(conv,8);
@@ -121,7 +58,12 @@ int main(){
     time_t elapsed = end - begin;
     printf("Time measured: %ld seconds.\n", elapsed);
 
+
     free(ft);
     free(T);
-    return 1;
+
+
+
+
+    return 1; 
 }
