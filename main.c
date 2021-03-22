@@ -29,7 +29,7 @@ int main(){
 
 
 
-    fichier = fopen("Stanford.txt","r");
+    fichier = fopen("web1.txt","r");
     if (fichier == NULL){
         printf("Impossible de lire le fichier !");
         exit(0);
@@ -101,20 +101,29 @@ int main(){
     pi = calloc(nbrSommet, sizeof(double));
     initvect(pi,nbrSommet);
     double *conv = calloc(nbrSommet, sizeof(double));
+    //affichervect(pi,8);
 
-    affichervect(pi,8);
+    //1 if vertex deleted else 0
+    int *deletedVertices = calloc(nbrSommet, sizeof(int));
+
+    //supprime x sommets et modifie liste des sommets supprimés
+    supprimerSommet(T, nbrSommet,4,deletedVertices);
+
+    //afficherListe(T, nbrSommet);
+
+    //creer fonction qui prend en entrée la liste de sommets et qui initialise vecteur
 
     /*conv = convergence(T,nbrSommet,pi);       //TEST CONVERGENCE
     affichervect(conv,nbrSommet);*/
 
     /*multiplication(T,pi,conv,nbrSommet);
-    double  *v1 =calloc(nbrSommet, sizeof(double));       //TEST ALPHA*M
+    double  *v1 =calloc(nbrSommet, sizeof(double));      //TEST ALPHA*M
     v1 = alphaP(conv,nbrSommet);
     affichervect(v1,nbrSommet);*/
 
-    conv = surferaleatoir(T,nbrSommet,pi,ft);
+    //conv = surferaleatoir(T,nbrSommet,pi,ft);
 
-    affichervect(conv,8);
+    //affichervect(conv,8);
 
     // Stop measuring time and calculate elapsed time
     time(&end);
