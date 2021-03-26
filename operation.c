@@ -236,7 +236,6 @@ void remove_vertex(EDGE** T, int vertex_index, int nb_sommets){
                 save_the_next = walking_node->next;
                 free(walking_node);
                 walking_node = save_the_next;
-                printf("Hello\n");
 
             }
             T[i - 1] = NULL;

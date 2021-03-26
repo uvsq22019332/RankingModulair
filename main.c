@@ -35,13 +35,12 @@ int main(){
 
     fclose(fichier);
     afficherListe(T,8); //AFFICHAGE
-
+    printf("\n");
     remove_vertex(T, 3, nbrSommet);
 
-    printf("\n");
     afficherListe(T,8);
+    printf("\n");
 
-    return 0;
     // Allocation de la mémoire et initiation du vecteur de pertinence PI.
     pi = calloc(nbrSommet, sizeof(double));
     initvect(pi,nbrSommet);

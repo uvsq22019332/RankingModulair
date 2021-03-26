@@ -1,6 +1,4 @@
-- Changement de quelques commentaires pour refléter le flow du programme
 - Restructuration du code pour une meilleure lisibilité et aisance de changement/maintenance
 	- Création de la fonction open_file qui permet de regrouper la logique d'ouverture d'un fichier.
-	- Création de la fonction remplisser_matrice_creuse qui permet de regrouper la logique de la lecture.
-	- 
-- 
+	- Création de la fonction remplir_matrice_creuse qui permet de regrouper la logique de la lecture.
+- Création de la fonction remove_vertex qui permet la suppression d'un sommet spécifié
