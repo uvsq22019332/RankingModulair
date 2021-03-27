@@ -103,15 +103,6 @@ int main(){
     double *conv = calloc(nbrSommet, sizeof(double));
     affichervect(pi,8);
 
-    //1 if vertex deleted else 0
-    int *deletedVertices = calloc(nbrSommet, sizeof(int));
-
-    //supprime x sommets et modifie liste des sommets supprimés
-    supprimerSommet(T, nbrSommet,4,deletedVertices);
-
-    //afficherListe(T, nbrSommet);
-
-    //creer fonction qui prend en entrée la liste de sommets et qui initialise vecteur
 
     /*conv = convergence(T,nbrSommet,pi);       //TEST CONVERGENCE
     affichervect(conv,nbrSommet);*/
@@ -125,14 +116,21 @@ int main(){
     conv = surferaleatoir(T,nbrSommet,pi,ft);
     affichervect(conv,8);
 
-    double *newVect = calloc(nbrSommet, sizeof(double));
+    //1 if vertex deleted else 0
+    int *deletedVertices = calloc(nbrSommet, sizeof(int));
+
+    //supprime x sommets et modifie liste des sommets supprimés
+    supprimerSommet(T, nbrSommet, 1, deletedVertices);
+
+    double *newVectInit = calloc(nbrSommet, sizeof(double));
     double *result = calloc(nbrSommet, sizeof(double));
-    initvect2(deletedVertices, conv, newVect, nbrSommet);
+
+    initvect2(deletedVertices, conv, newVectInit, nbrSommet);
     printf("Vector after initialising with previous vector : \n");
-    affichervect(newVect,nbrSommet);
-    //printf("Result :\n");
-    //result = surferaleatoir(T, nbrSommet, newVect, ft);
-    //affichervect(result,nbrSommet);
+    affichervect(newVectInit,nbrSommet);
+    printf("Result :\n");
+    result = surferaleatoir(T, nbrSommet, newVect, ft);
+    affichervect(result,nbrSommet);
 
     // Stop measuring time and calculate elapsed time
     time(&end);

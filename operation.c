@@ -215,28 +215,31 @@ void supprimerSommet(Liste T[], int nbrSommet, int nbVerticesToDelete, int *dele
     afficherListe(T, nbrSommet);
     printf("----------------------------------\n");*/
 
+    //On vérifie que le nombre de sommets à supprimer défini est bien inférieur au nombre de sommets total
     if(nbVerticesToDelete>nbrSommet){
         printf("Le nombre de sommets a supprimer est superieur au nombre de sommets");
         exit(0);
     }
 
-    //seed for random generator for supprimerSommet
+    //seed for random generator 
     srand(time(NULL));
+
     int i, k, upper, lower, randVertex, oldRand, counter;
     counter = 0;
     oldRand = 0;
     lower = 1;
     upper = nbrSommet;
 
-
+    //On supprime un nombre de sommets aléatoires défini par nbVerticesToDelete
     for (k = 0; k < nbVerticesToDelete; k++){
 
+        //on génère un sommet aléatoire en ne tirant pas 2 fois le même sommet
         randVertex = (rand() % (upper - lower + 1)) + lower;
         while (deletedVertices[randVertex - 1]==1){
             randVertex = (rand() % (upper - lower + 1)) + lower;
         }            
     
-        printf("---------Vertex to delete = %d---------\n", randVertex);
+        //printf("---------Vertex to delete = %d---------\n", randVertex);
 
         //suppression successeur du sommet à supprimer
         T[randVertex - 1] = NULL;
@@ -288,23 +291,23 @@ void supprimerSommet(Liste T[], int nbrSommet, int nbVerticesToDelete, int *dele
     
     }
 
-    printf("%d sommets ont ete supprimes\n",nbVerticesToDelete);
+    printf("%d sommet(s) ont ete supprime(s)\n",nbVerticesToDelete);
 
     /* printf("\nGraphe apres modifications\n");
     printf("----------------------------------\n");
     afficherListe(T, nbrSommet);*/
 
-
-    
 }
 
 void initvect2(int *deletedVertices, double * oldVect, double *newVect, int nbrelem){
     int i = 0;
 
     for (i = 0; i < nbrelem; i++){
+        //Si le sommet n'a pas été supprimé on initialise avec l'ancien résultat 
         if(deletedVertices[i]==0){
             newVect[i] = oldVect[i];
         }
+        //sinon on initialise a 1/N
         else{
             newVect[i] = 1.0 / (nbrelem * 1.0);
         }
