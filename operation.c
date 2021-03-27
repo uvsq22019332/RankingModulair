@@ -207,6 +207,7 @@ double *surferaleatoir(Liste T[], int nbrelem, double *pi,double *ft)
 }
 
 void supprimerSommet(Liste T[], int nbrSommet, int nbVerticesToDelete, int *deletedVertices)
+
 {
 
     /*printf("\nGraphe avant modifications\n");
@@ -292,4 +293,20 @@ void supprimerSommet(Liste T[], int nbrSommet, int nbVerticesToDelete, int *dele
     /* printf("\nGraphe apres modifications\n");
     printf("----------------------------------\n");
     afficherListe(T, nbrSommet);*/
+
+
+    
+}
+
+void initvect2(int *deletedVertices, double * oldVect, double *newVect, int nbrelem){
+    int i = 0;
+
+    for (i = 0; i < nbrelem; i++){
+        if(deletedVertices[i]==0){
+            newVect[i] = oldVect[i];
+        }
+        else{
+            newVect[i] = 1.0 / (nbrelem * 1.0);
+        }
+    }
 }

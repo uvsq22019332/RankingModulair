@@ -101,7 +101,7 @@ int main(){
     pi = calloc(nbrSommet, sizeof(double));
     initvect(pi,nbrSommet);
     double *conv = calloc(nbrSommet, sizeof(double));
-    //affichervect(pi,8);
+    affichervect(pi,8);
 
     //1 if vertex deleted else 0
     int *deletedVertices = calloc(nbrSommet, sizeof(int));
@@ -121,9 +121,18 @@ int main(){
     v1 = alphaP(conv,nbrSommet);
     affichervect(v1,nbrSommet);*/
 
-    //conv = surferaleatoir(T,nbrSommet,pi,ft);
+    printf("Resultats surfer vecteur normal : \n");
+    conv = surferaleatoir(T,nbrSommet,pi,ft);
+    affichervect(conv,8);
 
-    //affichervect(conv,8);
+    double *newVect = calloc(nbrSommet, sizeof(double));
+    double *result = calloc(nbrSommet, sizeof(double));
+    initvect2(deletedVertices, conv, newVect, nbrSommet);
+    printf("Vector after initialising with previous vector : \n");
+    affichervect(newVect,nbrSommet);
+    //printf("Result :\n");
+    //result = surferaleatoir(T, nbrSommet, newVect, ft);
+    //affichervect(result,nbrSommet);
 
     // Stop measuring time and calculate elapsed time
     time(&end);
