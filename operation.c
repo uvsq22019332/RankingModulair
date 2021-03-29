@@ -314,10 +314,13 @@ void initvect2(int *deletedVertices, double * oldVect, double *newVect, int nbre
     }
 }
 
-void normalise(double *vect, int nbelem)
-{
-    for (int i = 0; i < nbelem; i++)
+void normalise(double *vect, int nbelem){
+    double somme;
+    for (int i = 0; i <nbelem; i++)
     {
-        vect[i] /= nbelem;
+        somme += vect[i];
+    }
+    for (int i = 0; i < nbelem; i++){
+        vect[i] /= somme;
     }
 }
