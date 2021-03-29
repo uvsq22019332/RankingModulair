@@ -128,8 +128,13 @@ int main(){
     initvect2(deletedVertices, conv, newVectInit, nbrSommet);
     printf("Vector after initialising with previous vector : \n");
     affichervect(newVectInit,nbrSommet);
+
+    normalise(newVectInit,nbrSommet);
+    printf("Vector after normalising : \n");
+    affichervect(newVectInit, nbrSommet);
+
     printf("Result :\n");
-    result = surferaleatoir(T, nbrSommet, newVect, ft);
+    result = surferaleatoir(T, nbrSommet, newVectInit, ft);
     affichervect(result,nbrSommet);
 
     // Stop measuring time and calculate elapsed time
