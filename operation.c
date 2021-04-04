@@ -291,7 +291,7 @@ void supprimerSommet(Liste T[], int nbrSommet, int nbVerticesToDelete, int *dele
     
     }
 
-    printf("%d sommet(s) ont ete supprime(s)\n",nbVerticesToDelete);
+    printf("%d sommet(s) supprime(s)\n",nbVerticesToDelete);
 
     /* printf("\nGraphe apres modifications\n");
     printf("----------------------------------\n");
@@ -315,7 +315,7 @@ void initvect2(int *deletedVertices, double * oldVect, double *newVect, int nbre
 }
 
 void normalise(double *vect, int nbelem){
-    double somme;
+    double somme = 0;
     for (int i = 0; i <nbelem; i++)
     {
         somme += vect[i];
