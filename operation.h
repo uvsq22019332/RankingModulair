@@ -12,3 +12,5 @@ double *alphaP(Liste T[], double *p,int nbr);
 double *scalairE(Liste T[],double *pi,double *ft,int nbr);
 double *surferaleatoir(Liste T[], int nbrelem, double *pi,double *ft);
 void supprimerSommet(Liste T[], int nbrSommet, int nbVerticesToDelete, int *deletedVertices);
+void initvect2(int *deletedVertices, double *oldVect, double *newVect, int nbrelem);
+void normalise(double *vect, int nbelem);

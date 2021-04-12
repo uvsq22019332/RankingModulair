@@ -4,13 +4,12 @@
 #include "matrice.h"
 
 
-//j'ai remplacé liste par liste*
 Liste initialisation(){
   Liste l = NULL;
   return l;
 }
 
-//j'ai remplacé Liste * old par Liste old
+
 Liste insertion(Liste old, int sommetDep, double prob){
     EDGE *nouveau = malloc(sizeof(EDGE));
 
@@ -22,7 +21,7 @@ Liste insertion(Liste old, int sommetDep, double prob){
 }
 
 
-//j'ai modifié l'affichage de la liste pour ne pas avoir de boucle dans le main
+
 void afficherListe(Liste *liste,int nbrSommet){
     for (int i = 0; i < nbrSommet; i++){
         if (liste[i] == NULL){
