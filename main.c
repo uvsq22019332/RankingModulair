@@ -116,10 +116,11 @@ int main(){
     conv = surferaleatoir(T,nbrSommet,pi,ft);
     affichervect(conv,8);*/
 
+
     //1 if vertex deleted else 0
     int *deletedVertices = calloc(nbrSommet, sizeof(int));
 
-    generateRandomVerticesToDelete(nbrSommet,1,deletedVertices);
+    generateRandomVerticesToDelete(nbrSommet,8,deletedVertices);
     for (int i = 0; i < nbrSommet; i++){
         if (deletedVertices[i]==1){
             printf("Sommet %d a supprimer\n",i+1); 
@@ -128,6 +129,7 @@ int main(){
 
     //supprime x sommets et modifie liste des sommets supprimés
     supprimerSommet(T, nbrSommet, deletedVertices);
+
 
     /*double *newVectInit = calloc(nbrSommet, sizeof(double));
     double *result = calloc(nbrSommet, sizeof(double));

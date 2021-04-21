@@ -231,11 +231,6 @@ void generateRandomVerticesToDelete(int nbrSommet, int nbVerticesToDelete, int *
 
 void supprimerSommet(Liste T[], int nbrSommet, int *deletedVertices){
 
-    /*printf("\nGraphe avant modifications\n");
-    printf("----------------------------------\n");
-    afficherListe(T, nbrSommet);
-    printf("----------------------------------\n");*/
-
     int i, k,counter;
     counter = 0;
 
@@ -285,10 +280,6 @@ void supprimerSommet(Liste T[], int nbrSommet, int *deletedVertices){
         }
     
     }
-    /* printf("\nGraphe apres modifications\n");
-    printf("----------------------------------\n");
-    afficherListe(T, nbrSommet);*/
-
 }
 
 void initvect2(int *deletedVertices, double * oldVect, double *newVect, int nbrelem){
