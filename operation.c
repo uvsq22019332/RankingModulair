@@ -237,7 +237,7 @@ void supprimerSommet(Liste T[], int nbrSommet, int nbVerticesToDelete, int *dele
     
         //printf("---------Vertex to delete = %d---------\n", randVertex);
 
-        //suppression successeur du sommet à supprimer
+        //suppression predecesseurs du sommet à supprimer
         T[randVertex - 1] = NULL;
 
         //on met à 1 si le sommet a été supprimé
