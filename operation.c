@@ -299,9 +299,9 @@ void initvect2(int *deletedVertices, double * oldVect, double *newVect, int nbre
         if(deletedVertices[i]==0){
             newVect[i] = oldVect[i];
         }
-        //sinon on initialise a 1/N
+        //sinon on initialise a -1
         else{
-            newVect[i] = 1.0 / (nbrelem * 1.0);
+            newVect[i] = -1;
         }
     }
 }
@@ -313,6 +313,9 @@ void normalise(double *vect, int nbelem){
         somme += vect[i];
     }
     for (int i = 0; i < nbelem; i++){
+        if(vect[i]==-1){
+            continue;
+        }
         vect[i] /= somme;
     }
 }
