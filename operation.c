@@ -107,7 +107,7 @@ double  *convergence(Liste T[], int nbrelem, double *pi){
     return v1;
 }
 
-double *alphaP(Liste T[],double *pi,int nbr){
+double *alphaP(Liste T[],double *pi,int nbr,int* deletedVertices){
 
      double *v1 = calloc(nbr, sizeof(double));
      double *v2 = calloc(nbr, sizeof(double));
@@ -115,7 +115,12 @@ double *alphaP(Liste T[],double *pi,int nbr){
      multiplication(T,pi,v1,nbr);
 
      for(int i =0 ;i<nbr;i++){
-        v2[i]=v1[i]*0.85;
+        if(deletedVertices[i]){
+            v2[i] = -1;
+        } 
+        else{
+            v2[i]=v1[i]*0.85;
+        }
      }
 
      return v2;
@@ -163,12 +168,16 @@ double *AdditionVect(double *xp, double *xfe, int nbr){
     double *v1 = calloc(nbr, sizeof(double));
 
     for(int i = 0;i<nbr;i++){
+        if(xp[i]==-1){
+            continue;
+        }
         v1[i]=xp[i]+xfe[i];
     }
     return v1;
 }
 
-double *surferaleatoir(Liste T[], int nbrelem, double *pi,double *ft){
+double *surferaleatoir(Liste T[], int nbrelem, double *pi, double *ft, int *deletedVertices)
+{
     double dif = 0;
     int iteration = 1;
     double *xp = calloc(nbrelem, sizeof(double));
@@ -176,7 +185,7 @@ double *surferaleatoir(Liste T[], int nbrelem, double *pi,double *ft){
     double *x = calloc(nbrelem, sizeof(double));
     double *x2 = calloc(nbrelem, sizeof(double));
 
-    xp = alphaP(T,pi,nbrelem);
+    xp = alphaP(T, pi, nbrelem, deletedVertices);
     xfe = scalairE(T,pi,ft,nbrelem);
     x = AdditionVect(xp,xfe,nbrelem); //c'est xG
     dif = diff(x,pi,nbrelem);
@@ -187,7 +196,7 @@ double *surferaleatoir(Liste T[], int nbrelem, double *pi,double *ft){
     while (dif>EPSILON){
             xp = calloc(nbrelem, sizeof(double));
             xfe = calloc(nbrelem, sizeof(double));
-            xp = alphaP(T,x,nbrelem);
+            xp = alphaP(T, x, nbrelem, deletedVertices);
             xfe = scalairE(T,x,ft,nbrelem);
             x2 = AdditionVect(xp,xfe,nbrelem); //c'est xG
             dif = diff(x,x2,nbrelem);

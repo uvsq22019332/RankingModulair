@@ -112,15 +112,15 @@ int main(){
     v1 = alphaP(conv,nbrSommet);
     affichervect(v1,nbrSommet);*/
 
-    /*printf("Resultats surfer vecteur normal : \n");
-    conv = surferaleatoir(T,nbrSommet,pi,ft);
-    affichervect(conv,8);*/
-
-
     //1 if vertex deleted else 0
     int *deletedVertices = calloc(nbrSommet, sizeof(int));
 
-    generateRandomVerticesToDelete(nbrSommet,8,deletedVertices);
+    printf("Resultats surfer vecteur normal : \n");
+    conv = surferaleatoir(T, nbrSommet, pi, ft, deletedVertices);
+    affichervect(conv,8);
+
+   
+    generateRandomVerticesToDelete(nbrSommet,1,deletedVertices);
     for (int i = 0; i < nbrSommet; i++){
         if (deletedVertices[i]==1){
             printf("Sommet %d a supprimer\n",i+1); 
@@ -131,7 +131,7 @@ int main(){
     supprimerSommet(T, nbrSommet, deletedVertices);
 
 
-    /*double *newVectInit = calloc(nbrSommet, sizeof(double));
+    double *newVectInit = calloc(nbrSommet, sizeof(double));
     double *result = calloc(nbrSommet, sizeof(double));
 
     initvect2(deletedVertices, conv, newVectInit, nbrSommet);
@@ -143,8 +143,8 @@ int main(){
     affichervect(newVectInit, nbrSommet);
 
     printf("Result :\n");
-    result = surferaleatoir(T, nbrSommet, newVectInit, ft);
-    affichervect(result,nbrSommet);*/
+    result = surferaleatoir(T, nbrSommet, newVectInit, ft,deletedVertices);
+    affichervect(result,nbrSommet);
 
     // Stop measuring time and calculate elapsed time
     time(&end);
