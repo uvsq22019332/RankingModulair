@@ -16,4 +16,4 @@ typedef EDGE *Liste;
 
 Liste initialisation();//j'ai remplacé Liste par Liste*
 Liste insertion(Liste old, int sommetDep, double prob); //j'ai remplacé Liste * old par Liste old
-void afficherListe(Liste *liste, int nbrSommet);
+void afficherListe(Liste *liste, int nbrSommet, int *deletedVertices);

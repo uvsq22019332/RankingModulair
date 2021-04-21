@@ -22,8 +22,12 @@ Liste insertion(Liste old, int sommetDep, double prob){
 
 
 
-void afficherListe(Liste *liste,int nbrSommet){
+void afficherListe(Liste *liste,int nbrSommet, int* deletedVertices){
     for (int i = 0; i < nbrSommet; i++){
+        if(deletedVertices[i]==1){
+            printf("Sommet %d supprime\n", i + 1);
+            continue;
+        }
         if (liste[i] == NULL){
             printf("Pas de predesseceur pour le sommet %d\n", i+1);
         }
