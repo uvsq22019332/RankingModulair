@@ -119,20 +119,17 @@ int main(){
     //1 if vertex deleted else 0
     int *deletedVertices = calloc(nbrSommet, sizeof(int));
 
-    generateRandomVerticesToDelete(nbrSommet,8,deletedVertices);
-    for (int i = 0; i < nbrSommet; i++)
-    {
+    generateRandomVerticesToDelete(nbrSommet,1,deletedVertices);
+    for (int i = 0; i < nbrSommet; i++){
         if (deletedVertices[i]==1){
-            //printf("Sommet %d à supprimer\n",i+1);
-            
+            printf("Sommet %d a supprimer\n",i+1); 
         }
-        printf("%d: %d\n",i, deletedVertices[i]);
     }
 
     //supprime x sommets et modifie liste des sommets supprimés
-   /* supprimerSommet(T, nbrSommet, 1, deletedVertices);
+    supprimerSommet(T, nbrSommet, deletedVertices);
 
-    double *newVectInit = calloc(nbrSommet, sizeof(double));
+    /*double *newVectInit = calloc(nbrSommet, sizeof(double));
     double *result = calloc(nbrSommet, sizeof(double));
 
     initvect2(deletedVertices, conv, newVectInit, nbrSommet);

@@ -224,85 +224,67 @@ void generateRandomVerticesToDelete(int nbrSommet, int nbVerticesToDelete, int *
         while (deletedVertices[randVertex - 1] == 1){
             randVertex = (rand() % (upper - lower + 1)) + lower;
         }
-        printf("randvertex : %d\n", randVertex);
+        //printf("randvertex : %d\n", randVertex);
         deletedVertices[randVertex - 1] = 1;
     }
 }
 
-void supprimerSommet(Liste T[], int nbrSommet, int nbVerticesToDelete, int *deletedVertices){
+void supprimerSommet(Liste T[], int nbrSommet, int *deletedVertices){
 
     /*printf("\nGraphe avant modifications\n");
     printf("----------------------------------\n");
     afficherListe(T, nbrSommet);
     printf("----------------------------------\n");*/
 
- 
-
-    //seed for random generator 
-    srand(time(NULL));
-
-    int i, k, upper, lower, randVertex, oldRand, counter;
+    int i, k,counter;
     counter = 0;
-    oldRand = 0;
-    lower = 1;
-    upper = nbrSommet;
 
     //On supprime un nombre de sommets aléatoires défini par nbVerticesToDelete
-    for (k = 0; k < nbVerticesToDelete; k++){
+    for (k = 0; k < nbrSommet; k++){
 
-        //on génère un sommet aléatoire en ne tirant pas 2 fois le même sommet
-        randVertex = (rand() % (upper - lower + 1)) + lower;
-        while (deletedVertices[randVertex - 1]==1){
-            randVertex = (rand() % (upper - lower + 1)) + lower;
-        }            
-    
-        //printf("---------Vertex to delete = %d---------\n", randVertex);
+        if(deletedVertices[k]==1){
+            //printf("---------Vertex to delete = %d---------\n",k+1);
 
-        //suppression predecesseurs du sommet à supprimer
-        T[randVertex - 1] = NULL;
+            //suppression predecesseurs du sommet à supprimer
+            T[k] = NULL;
 
-        //on met à 1 si le sommet a été supprimé
-        deletedVertices[randVertex - 1] = 1;
+            //Parcours tableau
+            for (i = 0; i < nbrSommet; i++){
 
-        //Parcours tableau
-        for (i = 0; i < nbrSommet; i++){
-
-            EDGE *actuel = T[i];
-            EDGE *suivant;
-            if (actuel != NULL){
-                suivant = actuel->next;
-            }
-            else{
-                continue;
-            }
-            counter = 0;
-
-            while (actuel != NULL){
-                //printf("Sommet actuel : %d\n",actuel->vertex1);
-
-                //si le sommet à supprimer est en tête de liste
-                if (actuel->vertex1 == randVertex && counter == 0){
-                    // printf("Sommet a supprimer en tete de liste\n");
-                    T[i] = actuel->next;
-                    free(actuel);
-                    break;
+                EDGE *actuel = T[i];
+                EDGE *suivant;
+                if (actuel != NULL){
+                    suivant = actuel->next;
                 }
-                //sommet à supprimer en milieu de liste
-                else if (suivant != NULL && suivant->vertex1 == randVertex){
-                    // printf("Sommet a supprimer dans la liste\n");
-                    actuel->next = suivant->next;
-                    free(suivant);
-                    break;
+                else{
+                    continue;
                 }
-                actuel = actuel->next;
-                counter++;
+                counter = 0;
+
+                while (actuel != NULL){
+                    //printf("Sommet actuel : %d\n",actuel->vertex1);
+
+                    //si le sommet à supprimer est en tête de liste
+                    if (actuel->vertex1 == k+1 && counter == 0){
+                        // printf("Sommet a supprimer en tete de liste\n");
+                        T[i] = actuel->next;
+                        free(actuel);
+                        break;
+                    }
+                    //sommet à supprimer en milieu de liste
+                    else if (suivant != NULL && suivant->vertex1 == k+1){
+                        // printf("Sommet a supprimer dans la liste\n");
+                        actuel->next = suivant->next;
+                        free(suivant);
+                        break;
+                    }
+                    actuel = actuel->next;
+                    counter++;
+                }
             }
         }
     
     }
-
-    printf("%d sommet(s) supprime(s)\n",nbVerticesToDelete);
-
     /* printf("\nGraphe apres modifications\n");
     printf("----------------------------------\n");
     afficherListe(T, nbrSommet);*/
