@@ -101,7 +101,7 @@ int main(){
     pi = calloc(nbrSommet, sizeof(double));
     initvect(pi,nbrSommet);
     double *conv = calloc(nbrSommet, sizeof(double));
-    affichervect(pi,8);
+   // affichervect(pi,8);
 
 
     /*conv = convergence(T,nbrSommet,pi);       //TEST CONVERGENCE
@@ -112,15 +112,25 @@ int main(){
     v1 = alphaP(conv,nbrSommet);
     affichervect(v1,nbrSommet);*/
 
-    printf("Resultats surfer vecteur normal : \n");
+    /*printf("Resultats surfer vecteur normal : \n");
     conv = surferaleatoir(T,nbrSommet,pi,ft);
-    affichervect(conv,8);
+    affichervect(conv,8);*/
 
     //1 if vertex deleted else 0
     int *deletedVertices = calloc(nbrSommet, sizeof(int));
 
+    generateRandomVerticesToDelete(nbrSommet,8,deletedVertices);
+    for (int i = 0; i < nbrSommet; i++)
+    {
+        if (deletedVertices[i]==1){
+            //printf("Sommet %d à supprimer\n",i+1);
+            
+        }
+        printf("%d: %d\n",i, deletedVertices[i]);
+    }
+
     //supprime x sommets et modifie liste des sommets supprimés
-    supprimerSommet(T, nbrSommet, 1, deletedVertices);
+   /* supprimerSommet(T, nbrSommet, 1, deletedVertices);
 
     double *newVectInit = calloc(nbrSommet, sizeof(double));
     double *result = calloc(nbrSommet, sizeof(double));
@@ -135,7 +145,7 @@ int main(){
 
     printf("Result :\n");
     result = surferaleatoir(T, nbrSommet, newVectInit, ft);
-    affichervect(result,nbrSommet);
+    affichervect(result,nbrSommet);*/
 
     // Stop measuring time and calculate elapsed time
     time(&end);

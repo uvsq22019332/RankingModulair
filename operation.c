@@ -204,6 +204,31 @@ double *surferaleatoir(Liste T[], int nbrelem, double *pi,double *ft){
     return x;
 }
 
+void generateRandomVerticesToDelete(int nbrSommet, int nbVerticesToDelete, int *deletedVertices){
+
+    //On vérifie que le nombre de sommets à supprimer défini est bien inférieur au nombre de sommets total
+    if (nbVerticesToDelete > nbrSommet){
+        printf("Le nombre de sommets a supprimer est superieur au nombre de sommets");
+        exit(0);
+    }
+    //seed for random generator
+    srand(time(NULL));
+    int k, upper, lower, randVertex, oldRand;
+    oldRand = 0;
+    lower = 1;
+    upper = nbrSommet;
+
+    for (k = 0; k < nbVerticesToDelete; k++){
+
+        randVertex = (rand() % (upper - lower + 1)) + lower;
+        while (deletedVertices[randVertex - 1] == 1){
+            randVertex = (rand() % (upper - lower + 1)) + lower;
+        }
+        printf("randvertex : %d\n", randVertex);
+        deletedVertices[randVertex - 1] = 1;
+    }
+}
+
 void supprimerSommet(Liste T[], int nbrSommet, int nbVerticesToDelete, int *deletedVertices){
 
     /*printf("\nGraphe avant modifications\n");
@@ -211,11 +236,7 @@ void supprimerSommet(Liste T[], int nbrSommet, int nbVerticesToDelete, int *dele
     afficherListe(T, nbrSommet);
     printf("----------------------------------\n");*/
 
-    //On vérifie que le nombre de sommets à supprimer défini est bien inférieur au nombre de sommets total
-    if(nbVerticesToDelete>nbrSommet){
-        printf("Le nombre de sommets a supprimer est superieur au nombre de sommets");
-        exit(0);
-    }
+ 
 
     //seed for random generator 
     srand(time(NULL));
