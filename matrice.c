@@ -9,7 +9,8 @@ Liste initialisation(){
   return l;
 }
 
-
+// Prend l'ancien adresse de la tete d'une liste, une probabilité de routage et son origine
+// Crée -En utilisant les paramètres- et insert un nouveau EDGE dans la tete de la liste et renvoi son adresse en étant la nouvelle tete de liste.
 Liste insertion(Liste old, int sommetDep, double prob){
     EDGE *nouveau = malloc(sizeof(EDGE));
 
