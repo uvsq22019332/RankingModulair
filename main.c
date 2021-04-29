@@ -124,9 +124,9 @@ int main(){
     printf("\n \n");
 
 
-    int tab[6] = {1,2,3,4,5,6};
-    nbrSommet = remove_vertex_faster(T , tab, 6, nbrSommet, pi);
-    display_matrix(T, 3);
+    int tab[1] = {6};
+    nbrSommet = remove_vertex_faster(T , tab, 1, nbrSommet, pi);
+    display_matrix(T, 7);
     printf("\n\n");
 
 
