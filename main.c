@@ -75,9 +75,9 @@ int main(){
 
         // Mise à jour du vecteur ligne ft. Si l'origine a des arcs sortants, sa valeur correspondante dans ft est mise à 0, sinon 1.
         if(arc == 0)
-            ft[sommet1-1]=1;
+            ft[sommet1-1]= 1;
         else
-            ft[sommet1-1]=0;
+            ft[sommet1-1]= 0;
 
         //printf("le sommet : %d a %d successeur \n",sommet1,arc);
 
@@ -107,9 +107,6 @@ int main(){
 
     fclose(fichier);
 
-    display_matrix(T, 8);
-    printf("\n\n");
-
     // Allocation du vecteur de convergence
     double *conv = calloc(nbrSommet, sizeof(double));
 
@@ -124,9 +121,10 @@ int main(){
     printf("\n \n");
 
 
-    int tab[1] = {6};
+    int tab[1] = {7};
     nbrSommet = remove_vertex_faster(T , tab, 1, nbrSommet, pi);
-    display_matrix(T, 7);
+    printf("Yeah : %d\n", nbrSommet);
+    display_matrix(T, nbrSommet);
     printf("\n\n");
 
 
@@ -135,6 +133,7 @@ int main(){
 
     // Convergence normale, sans surfer aléatoire
     conv = convergence(T,nbrSommet,pi); 
+    printf("EAEAZEAAZEA");
     printf("Valeurs de convergence normale pour le vecteur Pi : \n");
     affichervect(conv,7);
     printf("\n \n");
@@ -161,8 +160,6 @@ int main(){
     //affichervect(conv,7);
     //printf("\n \n");
 
-    exit(0);
-
     /*
     printf("Initialisation du vecteur des pertinences Pi donne : \n");
     affichervect(pi,7);
@@ -183,9 +180,10 @@ int main(){
     // affichervect(v1,nbrSommet);*/
 
     // Convergence surfer aléatoire
-    //printf("Valeurs de convergence surfer aléatoire pour le vecteur Pi : \n");
-    //conv = surferaleatoir(T,nbrSommet,pi,ft);
-    //affichervect(conv,7);
+    printf("Valeurs de convergence surfer aléatoire pour le vecteur Pi : \n");
+    conv = realloc(conv, nbrSommet * sizeof(double));
+    conv = surferaleatoir(T,nbrSommet,pi,ft);
+    affichervect(conv,7);
 
     // //1 if vertex deleted else 0
     // int *deletedVertices = calloc(nbrSommet, sizeof(int));

@@ -55,7 +55,7 @@ void affichervect(double *vect,int nbr){
     int i;
 
     for(i=0;i<nbr;i++){
-        printf("%.10lf \t",vect[i]);
+        printf("%.19lf \t",vect[i]);
     }
     printf("\n");
 }
@@ -436,6 +436,12 @@ int findBound(int x, int* table, int size, int left, int right){
     
     int m = ((left + right) / 2);
 
+    if ( x == table[m]){
+
+        return m + 1;
+        
+    }
+
     if ( x < table[0] ){
 
         return 0;
@@ -474,40 +480,49 @@ int findBound(int x, int* table, int size, int left, int right){
 // Décale la matrice
 int decaler_matrice_faster(EDGE** matrice, int nbr_elements, int* deletion_vector, int dv_size){
 
-    int counter = 1;
-    for (int i = 0; i < nbr_elements; i++ ){
+
+    int i = 1;
+    int bound = 0;
+
+    while ( i < nbr_elements ){
+
+        bound = findBound(i, deletion_vector, dv_size, 0, (dv_size-1) );
+
 
         while ( isFound(i, deletion_vector, dv_size) ){
 
-            matrice[i-counter] = matrice[i];
-            i++;
-            while ( (!isFound(i, deletion_vector, dv_size)) && i < nbr_elements ){
-                
-                //printf("Je rentre ici avec : %d et counter : %d\n", i, counter);
-                matrice[i-counter] = matrice[i];
-                i++;
+            matrice[i - bound] =  matrice[i];
+            if ( isFound(i+1, deletion_vector, dv_size ) ){
+                bound++;
             }
-            
-            counter++;
+            i++;
 
+            
+
+        }
+
+        while ( !isFound(i, deletion_vector, dv_size) && i < nbr_elements ){
+
+            matrice[i - bound] =  matrice[i];
+            i++;
         }
 
     }
 
-    return nbr_elements - (counter - 1);
+    return nbr_elements - dv_size;
 
 }
 
 // Enlève un groupe de sommets et ajuste la matrice [ Principale ]
 int remove_vertex_faster(EDGE** matrice, int* sommets_cibles, int size, int nbrelem, double* pi){
 
-    int* tableau_frequences = calloc(nbrelem, sizeof(int));
+    int* tableau_frequences = calloc((nbrelem+1), sizeof(int));
 
     // Génératino du tableau de frequence.
     generer_tableau_frequence(matrice, tableau_frequences, size, sommets_cibles);
 
     // Suppression
-    nbrelem = decaler_matrice_faster(matrice, 8, sommets_cibles, 2);
+    nbrelem = decaler_matrice_faster(matrice, nbrelem, sommets_cibles, size);
 
     // Ajustement de la matrice
     ajuster_matrice_faster(matrice, sommets_cibles, size, nbrelem, tableau_frequences);
@@ -591,7 +606,15 @@ void ajuster_matrice_faster(EDGE** matrice, int* sommets_cibles, int size ,int n
 
                 }
 
-                // Si le sommet se situe au début ou au milieu de la liste
+                // Si le sommet se situe au début de la liste
+                if ( traversal_node->next != NULL && (traversal_node == matrice[i]) ){
+
+                    matrice[i] =  traversal_node->next;
+                    free(traversal_node);
+
+                }
+
+                // Si le sommet se situe au milieu de la liste
                 if ( traversal_node->next != NULL ){
                     
                     previous_edge->next = traversal_node->next;
@@ -604,6 +627,7 @@ void ajuster_matrice_faster(EDGE** matrice, int* sommets_cibles, int size ,int n
             // Treat non related
             if ( traversal_node ){
                 
+
                 frequence = tableau_frequences[traversal_node->vertex1];
                 if ( frequence ){
                     
