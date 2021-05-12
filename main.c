@@ -20,6 +20,11 @@ int main(int argc, char *argv[]){
     double *pi;
     double *ft;
     char * pch1;
+    double* conv;
+    double* conv2;
+
+    char* percent = argv[2];
+    int percent_integer;
 
     sommet1 = 0;
     sommet2 = 0;
@@ -107,6 +112,106 @@ int main(int argc, char *argv[]){
 
     fclose(fichier);
 
+
+
+
+
+
+    // ##################### Convergence surfer aléatoire pour le graphe initial ##############################
+
+    pi = calloc(sizeof(double), nbrSommet);
+
+    display_matrix(T, nbrSommet);
+
+    initvect(pi, nbrSommet);
+
+    conv = surferaleatoir(T, nbrSommet, pi, ft);
+
+    affichervect(conv, nbrSommet);
+
+
+    // #########################################################################################################
+
+
+
+
+
+
+
+
+
+    // ##################### Suppression d'un pourcentage de sommets et d'arcs #################################
+
+    percent_integer = nbrSommet*(atof(percent)/100);
+
+    int* vecteur_suppression = malloc(sizeof(int) * percent_integer);
+    double* newPi = malloc((nbrSommet - percent_integer) * sizeof(double));
+
+    //display_matrix(T, nbrSommet);
+    printf("\n\n\n");
+
+    // Génération du vecteur de suppression
+    vecteur_suppression = generate_random_vector(nbrSommet, percent_integer);
+    for (int i = 0; i < percent_integer; i++){
+
+        printf("%d ", vecteur_suppression[i]);
+
+    }
+    printf("\n\n\n");
+
+    // Suppression
+    T = remove_vertex_faster(T, vecteur_suppression, percent_integer, nbrSommet, ft, conv, newPi);
+    nbrSommet = nbrSommet - percent_integer;
+    display_matrix(T, nbrSommet);
+
+    affichervect(newPi, nbrSommet);
+
+    exit(0);
+    // ############################################################################################################
+
+
+
+
+
+
+
+    // ##################### Convergence surfer aléatoire pour le graphe modifié ################################
+
+    // Ajustement du vecteur de pertinence
+    pi = realloc(pi, sizeof(double) * nbrSommet);
+    initvect(pi, nbrSommet);
+
+    // Déclaration du nouvel vecteur de pertinence
+    conv2 = surferaleatoir(T, nbrSommet, pi, ft);
+    affichervect(conv2, nbrSommet);
+
+    // ############################################################################################################
+
+
+
+
+
+
+
+    // ############## Convergence surfer aléatoire pour le graphe modifié en utilisant l'ancien vecteur de pertinence ##################
+
+    // Initialisation du vecteur de pertinence avec les anciens valeurs
+
+
+
+
+
+
+
+    /*printf("Matrice apres supression des sommets\n");
+    display_matrix(T, nbrSommet);
+    printf("\n\n\n");*/
+
+
+
+    exit(0);
+
+    /*
     //ouverture/creation du fichier csv
     FILE *fpt;
     graphFile[strlen(graphFile) - 4] = 0;
@@ -148,7 +253,7 @@ int main(int argc, char *argv[]){
     fprintf(fpt,"\n");
     
     //pourcentage de sommets supprimés
-   /* char* percent = argv[2];
+   /* 
     int size = nbrSommet*(atof(percent)/100);*/
 
     //suppression
@@ -156,7 +261,8 @@ int main(int argc, char *argv[]){
     for(int i=0;i<size;i++){
         printf("tab[%d]=%d\n",i,tab[i]);
     }*/
-    int tab[2]={4,6};
+
+    /*int tab[2]={4,6};
     nbrSommet = remove_vertex_faster(T , tab, 2, nbrSommet,savedConv,ft,newPi);
     printf("Matrice apres supression des sommets\n");
     display_matrix(T, nbrSommet);
@@ -208,7 +314,7 @@ int main(int argc, char *argv[]){
     time(&end);
     time_t elapsed = end - begin;
     printf("Time measured: %ld seconds.\n", elapsed);
-
+    */
     free(ft);
     free(T);
     
